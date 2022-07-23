@@ -1,5 +1,6 @@
 package jpanative;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.Id;
+import javax.persistence.PersistenceContext;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -18,13 +20,11 @@ public class DemoApplication {
 }
 
 @Component
+@RequiredArgsConstructor
 class Tester {
-    final EntityManager entityManager;
+    @PersistenceContext
+    EntityManager entityManager;
     final PersonRepo personRepo;
-    Tester(EntityManager entityManager, PersonRepo personRepo) {
-        this.entityManager = entityManager;
-        this.personRepo = personRepo;
-    }
 
     @EventListener
     public void ctxRefreshed(ContextRefreshedEvent e) {
