@@ -1,16 +1,10 @@
 package jpanative;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Component;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.Id;
-import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -19,40 +13,14 @@ public class DemoApplication {
     }
 }
 
-@Component
-@RequiredArgsConstructor
-class Tester {
-    @PersistenceContext
-    EntityManager entityManager;
-    final PersonRepo personRepo;
-
-    @EventListener
-    public void ctxRefreshed(ContextRefreshedEvent e) {
-        System.out.println("Record exists " + personRepo.existsById(1L)); //this works
-
-        //none of the following works
-        personRepo.getReferenceById(1L);
-        entityManager.find(Person.class, 1L);
-        entityManager.getReference(Person.class, 1L);
+@Controller
+class Ctrl {
+    @RequestMapping({"/", ""})
+    String home(Model m) {
+        m.addAttribute("person", new Person("Bob", 20));
+        return "home";
     }
 }
 
-interface PersonRepo extends JpaRepository<Person, Long>{}
-@Entity
-class Person {
-    @Id
-    Long id;
-    String name;
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+record Person(String name, int age) {
 }
