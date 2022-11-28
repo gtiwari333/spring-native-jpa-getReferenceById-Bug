@@ -7,6 +7,27 @@ How to reproduce:
 
 Record is not supported by SpEL
 
+
+## Update it works after adding native hint
+
+```java
+
+@ImportRuntimeHints(NativeHints.class)
+@Configuration
+class NativeConfiguration {}
+
+class NativeHints implements RuntimeHintsRegistrar {
+
+    @Override
+    public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+        hints
+                .reflection()
+                .registerType(Person.class, MemberCategory.values());
+    }
+}
+```
+
+
 >> $ mvn native:compile -Pnative
 >> $ ./target/demo
 
