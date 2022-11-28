@@ -1,11 +1,10 @@
 
-## org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'jpanative.Person' - maybe not public or not valid?
+### Error: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'name' cannot be found on object of type 'jpanative.Person' - maybe not public or not valid?
 
-#### Similar to https://github.com/spring-projects/spring-framework/issues/29571 ?
+##### Similar to https://github.com/spring-projects/spring-framework/issues/29571 ??
 
 How to reproduce:
 
-Record is not supported by SpEL
 
 
 ## Update it works after adding native hint
@@ -29,8 +28,13 @@ class NativeHints implements RuntimeHintsRegistrar {
 
 
 >> $ mvn native:compile -Pnative
+
 >> $ ./target/demo
 
+>> open localhost:8080
+
+
+Full Error:
 ```
 .   ____          _            __ _ _
 /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
