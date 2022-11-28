@@ -12,6 +12,8 @@ How to reproduce:
 
 >> open localhost:8080
 
+
+Full Error:
 ```
 .   ____          _            __ _ _
 /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
